@@ -5,7 +5,8 @@ import {useCallback, useEffect, useState} from "react";
 
 const fetchWeatherData = (city)=>{
   return new Promise((resolve, reject)=>{
-    const url = `https://api.openweathermap.org/data/2.5/weather?appid=afba36cb728b0015985b3602269c9a11&q=${city}&units=metric`
+    const apiKey  = "afba36cb728b0015985b3602269c9a11"
+    const url = `https://api.openweathermap.org/data/2.5/weather?appid${apiKey}=&q=${city}&units=metric`
     axios.get(url).then(r=>{
       if (r?.status === 200){
         resolve(r?.data)
