@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import './index.css';
-import axios from "axios";
 import useFetchWeather from "../../Hooks/useFetchWeather";
+import {Button, TextField} from "@mui/material";
 
 const View = ()=>{
   // Hooks call
@@ -20,16 +20,19 @@ const View = ()=>{
   return (
     <div className="container">
       <div className="form">
-        <p>Enter City Name</p>
-        <input type="text" onChange={(event)=>{
+        <p className="underline decoration-wavy">Enter City Name</p>
+        <br/>
+        <TextField variant="outlined" onChange={(event)=>{
           setCityInput(event.target.value)
-        }} /><br/><br/>
-        <span className="error_message">{(error!==null) && error.message}<br/></span>
-        <button type="button" onClick={()=>{
+        }} />
+        <br/>
+        <span className="error_message">{(error!==null) && error.message}</span>
+        <br/>
+        <Button variant="contained" onClick={()=>{
           fetchWeatherDataCallback(cityInput)
         }}>
           Fetch Data
-        </button>
+        </Button>
       </div>
       <div className="weather-info">
         <table align={"center"}>
