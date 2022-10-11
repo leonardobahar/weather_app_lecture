@@ -31,7 +31,6 @@ const App =()=>{
     })
   }, [weatherData, setWeatherData])
 
-
   useEffect(()=>{
     fetchWeatherDataCallback("Jakarta");
   }, [])
