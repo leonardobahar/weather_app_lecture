@@ -28,6 +28,14 @@ const useFetchWeather = ()=>{
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const initialiseWeatherData = useCallback(()=>{
+    setWeatherData({
+      city: "",
+      temp: "",
+      humidity: "",
+    })
+  }, [setWeatherData])
+
   const fetchWeatherDataCallback = useCallback((city)=>{
     setIsLoading(true);
     return fetchWeatherData(city).then(response=>{
@@ -59,6 +67,7 @@ const useFetchWeather = ()=>{
 
   return [
     fetchWeatherDataCallback,
+    initialiseWeatherData,
     weatherData,
     error,
     isLoading,

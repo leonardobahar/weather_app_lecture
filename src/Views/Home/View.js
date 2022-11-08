@@ -4,6 +4,7 @@ import useFetchWeather from "../../Hooks/useFetchWeather";
 import {Box, Button, Container, Snackbar, TextField} from "@mui/material";
 import CityCardList from "./components/CityCardList";
 import {validateIfCityExist} from "./helper/ValidateIfCityExist";
+import CityInformationTable from "../../Components/CityInformationTable/CityInformationTable";
 
 const View = ()=>{
   const [citiesArray, setCitiesArray] = useState(
@@ -23,7 +24,11 @@ const View = ()=>{
     ]);
 
   // Hooks call
-  const [ fetchWeatherDataCallback, weatherData, error, isLoading] = useFetchWeather();
+  const [ fetchWeatherDataCallback, initialiseWeatherData, weatherData, error, isLoading] = useFetchWeather();
+
+  useEffect(()=>{
+    initialiseWeatherData();
+  }, []);
 
   const [cityInput, setCityInput] = useState("");
   const [shouldSnackbarOpen, setShouldSnackbarOpen] = useState(false);
@@ -94,19 +99,11 @@ const View = ()=>{
           </Button>
         </Container>
       </div>
-      <div className="weather-info">
-        <table align={"center"}>
-          <tr>
-            <th>City</th><td>{weatherData?.city}</td>
-          </tr>
-          <tr>
-            <th>Temperature</th><td>{weatherData?.temp}°C</td>
-          </tr>
-          <tr>
-            <th>Humidity</th><td>{weatherData?.humidity}%</td>
-          </tr>
-        </table>
-      </div>
+      <CityInformationTable
+        city={weatherData?.city}
+        temp={weatherData?.temp}
+        humidity={weatherData?.humidity}
+      />
         <CityCardList
           cityArray={citiesArray}
         />

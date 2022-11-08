@@ -1,9 +1,16 @@
 import './App.css';
-import View from "./Views/Home/View";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Views/Home/View";
+import Detail from "./Views/Detail/View";
 
 const App =()=>{
   return (
-    <View />
+    <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="detail" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
