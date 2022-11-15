@@ -5,6 +5,7 @@ import {Box, Button, Container, Snackbar, TextField} from "@mui/material";
 import CityCardList from "./components/CityCardList";
 import {validateIfCityExist} from "./helper/ValidateIfCityExist";
 import CityInformationTable from "../../Components/CityInformationTable/CityInformationTable";
+import {requestForToken} from "../../Helper/request_token";
 
 const View = ()=>{
   const [citiesArray, setCitiesArray] = useState(
@@ -28,6 +29,7 @@ const View = ()=>{
 
   useEffect(()=>{
     initialiseWeatherData();
+    requestForToken();
   }, []);
 
   const [cityInput, setCityInput] = useState("");
