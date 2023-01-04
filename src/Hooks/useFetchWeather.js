@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useCallback, useState} from "react";
 
+// Function containing fetch weather data network services
 const fetchWeatherData = (city)=>{
   return new Promise((resolve, reject)=>{
     const apiKey  = "afba36cb728b0015985b3602269c9a11"
@@ -18,6 +19,7 @@ const fetchWeatherData = (city)=>{
   })
 }
 
+// Start of hook
 const useFetchWeather = ()=>{
   const [weatherData={
     city: "",
@@ -28,6 +30,7 @@ const useFetchWeather = ()=>{
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Function initialiseWeather data will be called to set each attributes as empty
   const initialiseWeatherData = useCallback(()=>{
     setWeatherData({
       city: "",
@@ -36,12 +39,13 @@ const useFetchWeather = ()=>{
     })
   }, [setWeatherData])
 
-  const fetchWeatherDataCallback = useCallback((city)=>{
+  // Function to actually invoke fetchWeatherData
+  const fetchWeatherDataCallback = useCallback((city)=>{ // useCallback is used to cache the functions between re-renders -> performance optimization
     setIsLoading(true);
     return fetchWeatherData(city).then(response=>{
       console.log(typeof response?.name);
 
-      // Check for error
+      // Check for error in response payload
       if (typeof response?.name !== "string" &&
         !isNaN(response?.main?.temp) &&
         !isNaN(response?.main?.humidity)){
@@ -50,6 +54,7 @@ const useFetchWeather = ()=>{
         return;
       }
 
+      // No error, hence define weatherData object
       const weatherData = {
         city: response?.name,
         temp: response?.main?.temp,
